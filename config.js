@@ -1,4 +1,9 @@
 export const config = {
+  slippage: 1,
+  percentage: {
+    swapToGeth: 5,
+    swapToBtcb: 5,
+  },
   chainsForInteractions: [
     "avalanche",
     "polygon",

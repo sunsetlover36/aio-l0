@@ -19,13 +19,15 @@ import { chains } from "../chains";
 import {
   REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT,
   SIX_MONTHS_IN_MILLISECONDS,
-  SWAP_TO_BTCB_PERCENTAGE,
-  SWAP_TO_GETH_PERCENTAGE,
 } from "../constants";
 import { getUsdPrice } from "../api";
 
-const { interactionsInterval, interactionsCount, stablesForInteraction } =
-  config;
+const {
+  interactionsInterval,
+  interactionsCount,
+  stablesForInteraction,
+  percentage,
+} = config;
 
 const getRandomChain = (sieve, filter = []) => {
   const shuffledChains = shuffleArray(
@@ -128,7 +130,7 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
               evmWallet,
               {
                 fromToken: stableToken,
-                percentAmount: SWAP_TO_BTCB_PERCENTAGE,
+                percentAmount: percentage.swapToBtcb,
                 toChainId: destChain.chainId,
               }
             );
@@ -148,7 +150,7 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
             // Swap {N}% of native token balance to GETH
             await interactions.transferEthToGoerli.execute(evmWallet, {
               amount: new BigNumber(nativeBalance)
-                .multipliedBy(SWAP_TO_GETH_PERCENTAGE / 100)
+                .multipliedBy(percentage.swapToGeth / 100)
                 .toString(),
             });
             break;
