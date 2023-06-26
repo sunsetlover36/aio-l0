@@ -1,5 +1,5 @@
+![](https://i.ibb.co/bRVhSBn/2023-06-27-00-59-28.png)
 # L0 AIO by @ruburi
-
 ## Настройка софта
 
 В файле `config.js` можно настроить софт.
