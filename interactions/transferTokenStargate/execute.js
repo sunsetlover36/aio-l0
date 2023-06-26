@@ -1,7 +1,8 @@
 import BigNumber from "bignumber.js";
 import { Contract, Wallet, ZeroAddress, ZeroHash } from "ethers";
 
-import { DEFAULT_SLIPPAGE, DEFAULT_SLIPPAGE_MULTIPLIER } from "../../constants";
+import { config } from "../../config";
+import { DEFAULT_SLIPPAGE_MULTIPLIER } from "../../constants";
 import {
   approveToken,
   getChainById,
@@ -10,6 +11,7 @@ import {
   waitForBalance,
 } from "../../utils";
 
+const { slippage } = config;
 export const execute = async (
   wallet,
   { fromToken, toToken, toChainId, amount, destGas = 0 }
@@ -81,7 +83,7 @@ export const execute = async (
     token: toToken,
     amount: new BigNumber(destTokenBalance)
       .plus(amount)
-      .multipliedBy(1 - (DEFAULT_SLIPPAGE + 2) / 100)
+      .multipliedBy(1 - (slippage + 2) / 100)
       .toString(),
   });
 };

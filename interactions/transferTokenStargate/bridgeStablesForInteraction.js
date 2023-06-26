@@ -1,7 +1,6 @@
 import BigNumber from "bignumber.js";
 import { Wallet } from "ethers";
 
-import { DEFAULT_SLIPPAGE } from "../../constants";
 import { chains } from "../../chains";
 import { chainToColor } from "../../constants";
 import {
@@ -17,7 +16,7 @@ import { transferTokenAptos } from "../transferTokenAptos";
 import { transferTokenHarmony } from "../transferTokenHarmony";
 import { execute } from "./execute";
 
-const { stablesForInteraction } = config;
+const { stablesForInteraction, slippage } = config;
 
 export const bridgeStablesForInteraction = async (
   wallet,
@@ -103,7 +102,7 @@ export const bridgeStablesForInteraction = async (
         toToken: stableToken,
         toChainId: chainId,
         amount: bnMinStableRequiredForInteraction
-          .multipliedBy(1 + DEFAULT_SLIPPAGE / 100)
+          .multipliedBy(1 + slippage / 100)
           .toString(),
       });
       await waitForBalance(wallet, {
