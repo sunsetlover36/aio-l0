@@ -29,7 +29,7 @@ export const execute = async (wallet, { token, amount }) => {
 
   const adapterParams = solidityPacked(
     ["uint16", "uint", "uint", "address"],
-    [2, 0, 0, wallet.address]
+    [2, 200000, 0, wallet.address]
   );
   const lzBridgeFee = (
     await lzRouterContract.quoteLayerZeroFee(
