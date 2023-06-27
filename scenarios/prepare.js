@@ -19,13 +19,7 @@ export const prepare = async (keysList) => {
         await Promise.all(
           chainsForInteractions.map(async (chainName) => {
             const chain = chains[chainName];
-            const {
-              provider,
-              nativeToken,
-              contracts: {
-                tokens: { USDC, USDT },
-              },
-            } = chain;
+            const { provider, nativeToken } = chain;
             const evmWallet = new Wallet(evmKey, provider);
 
             const nativeBalance = formatEther(
