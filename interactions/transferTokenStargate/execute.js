@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 import { Contract, Wallet, ZeroAddress, ZeroHash } from "ethers";
 
 import { config } from "../../config";
-import { DEFAULT_SLIPPAGE_MULTIPLIER } from "../../constants";
+import { SLIPPAGE_MULTIPLIER } from "../../constants";
 import {
   approveToken,
   getChainById,
@@ -65,7 +65,7 @@ export const execute = async (
     wallet.address,
     bnAmount.toNumber(),
     bnAmount
-      .multipliedBy(DEFAULT_SLIPPAGE_MULTIPLIER)
+      .multipliedBy(SLIPPAGE_MULTIPLIER)
       .integerValue(BigNumber.ROUND_FLOOR)
       .toNumber(),
     [0, destGas, wallet.address],

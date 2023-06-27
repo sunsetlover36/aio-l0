@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 
 import { getChainByWallet, sendTx } from "../utils";
-import { DEFAULT_SLIPPAGE_MULTIPLIER } from "../constants";
+import { SLIPPAGE_MULTIPLIER } from "../constants";
 import { approveToken } from "../utils";
 
 export const swapWoofi = async (wallet, { amount, fromToken, toToken }) => {
@@ -30,7 +30,7 @@ export const swapWoofi = async (wallet, { amount, fromToken, toToken }) => {
       amount
     )
   )
-    .multipliedBy(DEFAULT_SLIPPAGE_MULTIPLIER)
+    .multipliedBy(SLIPPAGE_MULTIPLIER)
     .toString();
 
   const swapMethodParams = [

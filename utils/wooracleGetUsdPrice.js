@@ -2,7 +2,7 @@ import { Contract } from "ethers";
 import BigNumber from "bignumber.js";
 
 import { getChainByWallet } from "../utils";
-import { DEFAULT_SLIPPAGE_MULTIPLIER } from "../constants";
+import { SLIPPAGE_MULTIPLIER } from "../constants";
 
 export const wooracleGetUsdPrice = async (wallet, { token, slippage }) => {
   const {
@@ -18,5 +18,5 @@ export const wooracleGetUsdPrice = async (wallet, { token, slippage }) => {
   const price = new BigNumber(priceOut.toString())
     .dividedBy(10 ** Number(priceDecimals))
     .toNumber();
-  return price * (slippage ? 1 - slippage / 100 : DEFAULT_SLIPPAGE_MULTIPLIER);
+  return price * (slippage ? 1 - slippage / 100 : SLIPPAGE_MULTIPLIER);
 };
