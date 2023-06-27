@@ -8,6 +8,7 @@ import {
 import { chains } from "../chains";
 import { getUsdPrice } from "../api";
 import { config } from "../config";
+import { getStableToken, getTokenBalance } from "../utils";
 
 const { chainsForInteractions } = config;
 export const prepare = async (keysList) => {
@@ -17,13 +18,14 @@ export const prepare = async (keysList) => {
       const sieve = (
         await Promise.all(
           chainsForInteractions.map(async (chainName) => {
+            const chain = chains[chainName];
             const {
               provider,
               nativeToken,
               contracts: {
-                tokens: { USDC },
+                tokens: { USDC, USDT },
               },
-            } = chains[chainName];
+            } = chain;
             const evmWallet = new Wallet(evmKey, provider);
 
             const nativeBalance = formatEther(
@@ -32,20 +34,18 @@ export const prepare = async (keysList) => {
             const usdPrice = await getUsdPrice(nativeToken.coinGeckoId);
             const nativeBalanceInUsd = nativeBalance * usdPrice;
 
-            const usdcContract = new Contract(
-              USDC.address,
-              USDC.abi,
-              evmWallet
-            );
-            const usdcBalance = await usdcContract.balanceOf(evmWallet.address);
+            const stableToken = getStableToken(chain);
+            const stableTokenBalance = await getTokenBalance(evmWallet, {
+              token: stableToken,
+            });
 
             return nativeBalanceInUsd >
               REQUIRED_USD_AMOUNT_FOR_SECONDARY_ACCOUNT
               ? {
                   name: chainName,
                   canBeRoot: new BigNumber(REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT)
-                    .multipliedBy(10 ** USDC.decimals)
-                    .lte(usdcBalance),
+                    .multipliedBy(10 ** stableToken.decimals)
+                    .lte(stableTokenBalance),
                 }
               : undefined;
           })
