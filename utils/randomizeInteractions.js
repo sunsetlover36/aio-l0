@@ -28,7 +28,6 @@ export const randomizeInteractions = (sieve, interactionsDone) => {
     return {
       chainName,
       chainInteractions: shuffleArray(availableInteractions)
-        .slice(0, randint(1, availableInteractions.length))
         .sort((aI, bI) => {
           if (aI.name === "transferTokenStargate") {
             return 1;
@@ -37,7 +36,8 @@ export const randomizeInteractions = (sieve, interactionsDone) => {
             return -1;
           }
           return 0;
-        }),
+        })
+        .slice(0, randint(1, availableInteractions.length)),
     };
   });
 
