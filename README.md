@@ -1,5 +1,26 @@
 ![](https://i.ibb.co/bRVhSBn/2023-06-27-00-59-28.png)
+
 # L0 AIO by @ruburi
+
+## Сети
+
+- Avalanche
+- Arbitrum
+- BSC
+- Optimism
+- Polygon
+
+## Возможности софта
+
+- [STG stake](https://stargate.finance/stake/)
+- [testnetbridge](https://testnetbridge.com/)
+- [bitcoinbridge](https://bitcoinbridge.network/)
+- [aptosbridge](https://theaptosbridge.com/bridge/)
+- [stargatebridge](https://stargate.finance/transfer/)
+- [harmonybridge](https://layerzero.bridge.harmony.one/)
+- [jumper.exchange](https://jumper.exchange/)
+- [woofi](https://fi.woo.org/)
+
 ## Настройка софта
 
 В файле `config.js` можно настроить софт.
