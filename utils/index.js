@@ -3,6 +3,7 @@ export { chalk } from "./chalk";
 export { randint } from "./randint";
 export { shuffleArray } from "./shuffleArray";
 export { sleep } from "./sleep";
+export { convertMonthToMs } from "./convertMonthToMs";
 
 export { getDir } from "./getDir";
 export { getDeadline } from "./getDeadline";

@@ -13,13 +13,11 @@ import {
   sleep,
   workLogger,
   chalk,
+  convertMonthToMs,
 } from "../utils";
 import { config } from "../config";
 import { chains } from "../chains";
-import {
-  REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT,
-  SIX_MONTHS_IN_MILLISECONDS,
-} from "../constants";
+import { REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT } from "../constants";
 import { getUsdPrice } from "../api";
 
 const {
@@ -27,6 +25,7 @@ const {
   interactionsCount,
   stablesForInteraction,
   percentage,
+  stgStakePeriodInMonths,
 } = config;
 
 const getRandomChain = (sieve, filter = []) => {
@@ -116,7 +115,7 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
               amount: stablesAmountForInteraction,
             });
             await interactions.lockStg.execute(evmWallet, {
-              lockTime: SIX_MONTHS_IN_MILLISECONDS,
+              lockTime: convertMonthToMs(stgStakePeriodInMonths),
             });
             break;
           case interactions.transferBtcb.name:

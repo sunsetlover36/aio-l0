@@ -1,4 +1,5 @@
 export const config = {
+  stgStakePeriodInMonths: 6,
   slippage: 1,
   percentage: {
     swapToGeth: 5,
