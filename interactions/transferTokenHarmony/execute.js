@@ -27,10 +27,10 @@ export const execute = async (wallet, { token, amount }) => {
     spender: ProxyERC20.address,
   });
 
-  // const adapterParams = solidityPacked(
-  //   ["uint16", "uint", "uint", "address"],
-  //   [2, 0, 0, wallet.address]
-  // );
+  const adapterParams = solidityPacked(
+    ["uint16", "uint", "uint", "address"],
+    [2, 0, 0, wallet.address]
+  );
   const lzBridgeFee = (
     await lzRouterContract.quoteLayerZeroFee(
       harmonyLzChainId,
@@ -47,7 +47,7 @@ export const execute = async (wallet, { token, amount }) => {
     amount,
     wallet.address,
     ZeroAddress,
-    "0x",
+    adapterParams,
   ];
   const txParams = {
     value: lzBridgeFee,
