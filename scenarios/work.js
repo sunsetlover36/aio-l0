@@ -46,13 +46,6 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
   const { evmKey, aptosKey } = keys;
 
   const todos = randomizeInteractions(sieve, interactionsDone);
-  console.log(
-    todos.map((todo) => [
-      todo.chainName,
-      todo.chainInteractions.map((i) => i.name),
-    ])
-  );
-
   for (const [index, todo] of todos.entries()) {
     const { chainName, chainInteractions } = todo;
 
