@@ -1,4 +1,4 @@
-import ky from "ky";
+import ky from "ky-universal";
 
 /**
  * Retrieves a quote for a specific HTTP GET request.

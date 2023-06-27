@@ -1,4 +1,4 @@
-import ky from "ky";
+import ky from "ky-universal";
 
 const cache = {};
 export const getUsdPrice = async (...tickers) => {

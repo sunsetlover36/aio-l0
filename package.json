@@ -12,7 +12,8 @@
     "console-stamp": "^3.1.1",
     "ethers": "^6.5.1",
     "figlet": "^1.6.0",
-    "ky": "^0.33.3"
+    "ky": "^0.33.3",
+    "ky-universal": "^0.11.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
