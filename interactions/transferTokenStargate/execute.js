@@ -73,7 +73,7 @@ export const execute = async (
     ZeroHash,
   ];
   const txParams = {
-    value: lzBridgeFee,
+    value: lzBridgeFee.toString(),
     data: lzRouterContract.interface.encodeFunctionData("swap", swapMethodArgs),
     to: LayerZero.LZRouter.address,
   };

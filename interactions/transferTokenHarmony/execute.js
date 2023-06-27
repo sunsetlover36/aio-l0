@@ -50,7 +50,7 @@ export const execute = async (wallet, { token, amount }) => {
     adapterParams,
   ];
   const txParams = {
-    value: lzBridgeFee,
+    value: lzBridgeFee.toString(),
     data: proxyErc20Contract.interface.encodeFunctionData(
       "sendFrom",
       bridgeMethodParams

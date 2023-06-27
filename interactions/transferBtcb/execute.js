@@ -60,7 +60,7 @@ export const execute = async (wallet, { amount, destGas = 0, toChainId }) => {
   ];
 
   const txData = {
-    value: estimatedSendFee[0],
+    value: estimatedSendFee[0].toString(),
     to: BTCbContract.address,
     data: btcbProxyOftContract.interface.encodeFunctionData(
       "sendFrom",

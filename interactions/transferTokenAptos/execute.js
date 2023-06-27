@@ -57,7 +57,7 @@ export const execute = async (
       bridgeMethodParams
     ),
     to: AptosBridge.address,
-    value: nativeFee[0],
+    value: nativeFee[0].toString(),
   };
   await sendTx(wallet, txParams);
 };
