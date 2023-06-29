@@ -12,7 +12,10 @@ export const getUsdPrice = async (...tickers) => {
       await ky.get(
         `https://api.coingecko.com/api/v3/simple/price?ids=${nonCachedTickers.join(
           ","
-        )}&vs_currencies=usd`
+        )}&vs_currencies=usd`,
+        {
+          timeout: false,
+        }
       )
     ).json();
   }
