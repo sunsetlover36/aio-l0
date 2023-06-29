@@ -1,6 +1,6 @@
 import { StargateToken } from "../../../abis";
 
-const address = "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590";
+const address = "0x296F55F8Fb28E498B858d0BcDA06D955B2Cb3f97";
 export const STG = {
   ticker: "STG",
   address,

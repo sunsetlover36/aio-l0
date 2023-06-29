@@ -8,6 +8,7 @@ import { LiFi } from "./lifi";
 import { LayerZero } from "./layerzero";
 import { TestnetBridge } from "./testnetBridge";
 import { AptosBridge } from "./aptosBridge";
+import { Uniswap } from "./uniswap";
 
 const provider = new JsonRpcProvider("https://rpc.ankr.com/optimism");
 
@@ -32,6 +33,7 @@ export const optimism = {
       TestnetBridge,
       AptosBridge,
       STGVotingEscrow,
+      Uniswap,
     },
   },
   chainId: 10,

@@ -9,6 +9,7 @@ import SwappableBridgeUniswapV3 from "./SwappableBridgeUniswapV3.json" assert { 
 import AptosTokenBridge from "./AptosTokenBridge.json" assert { type: "json" };
 import StargateToken from "./StargateToken.json" assert { type: "json" };
 import STGVotingEscrow from "./STGVotingEscrow.json" assert { type: "json" };
+import UniswapQuoter from "./UniswapQuoter.json" assert { type: "json" };
 
 export {
   LZRouter,
@@ -22,6 +23,7 @@ export {
   AptosTokenBridge,
   StargateToken,
   STGVotingEscrow,
+  UniswapQuoter,
 };
 
 export * from "./avalanche";

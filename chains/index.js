@@ -17,3 +17,11 @@ export const chains = {
   harmony,
   goerli,
 };
+
+export const CHAINS_TO_WORK_WITH = [
+  "avalanche",
+  "polygon",
+  "arbitrum",
+  "bsc",
+  "optimism",
+];
