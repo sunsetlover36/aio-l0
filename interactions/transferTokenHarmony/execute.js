@@ -1,13 +1,14 @@
 import { Contract, ZeroAddress, ZeroHash, solidityPacked } from "ethers";
 
 import { approveToken, getChainByWallet, sendTx } from "../../utils";
+import { chains } from "../../chains";
 
+const harmonyLzChainId = chains.harmony.lzChainId;
 export const execute = async (wallet, { token, amount }) => {
   const {
     contracts: {
       services: { LayerZero, ProxyERC20 },
     },
-    lzChainId: harmonyLzChainId,
   } = await getChainByWallet(wallet);
 
   const lzRouterContract = new Contract(
@@ -29,7 +30,7 @@ export const execute = async (wallet, { token, amount }) => {
 
   const adapterParams = solidityPacked(
     ["uint16", "uint", "uint", "address"],
-    [2, 200000, 0, wallet.address]
+    [2, 500000, 0, wallet.address]
   );
   const lzBridgeFee = (
     await lzRouterContract.quoteLayerZeroFee(
@@ -37,7 +38,7 @@ export const execute = async (wallet, { token, amount }) => {
       1,
       ZeroAddress,
       ZeroHash,
-      [0, 0, wallet.address]
+      [500000, 0, wallet.address]
     )
   )[0];
   const bridgeMethodParams = [
