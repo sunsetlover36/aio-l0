@@ -16,7 +16,7 @@ import {
   convertMonthToMs,
 } from "../utils";
 import { config } from "../config";
-import { chains } from "../chains";
+import { CHAINS_TO_WORK_WITH, chains } from "../chains";
 import { REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT } from "../constants";
 import { getUsdPrice } from "../api";
 
@@ -33,7 +33,12 @@ const getRandomChain = (sieve, filter = []) => {
     sieve.filter((chain) => !filter.includes(chain))
   );
 
-  return shuffledChains.length > 0 ? chains[shuffledChains[0]] : undefined;
+  if (shuffledChains.length === 0) {
+    const randomChainName = shuffleArray(CHAINS_TO_WORK_WITH)[0];
+    return chains[randomChainName];
+  }
+
+  return chains[shuffledChains[0]];
 };
 
 const areAllInteractionsDone = (interactionsDone) =>
@@ -104,7 +109,7 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
             break;
           case interactions.lockStg.name:
             await interactions.lockStg.prepare(evmWallet, {
-              token: USDC,
+              token: stableToken,
               amount: stablesAmountForInteraction,
             });
             await interactions.lockStg.execute(evmWallet, {
