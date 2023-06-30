@@ -3,6 +3,7 @@ import { Contract } from "ethers";
 
 import { APPROVAL_AMOUNT_MULTIPLIER } from "../constants";
 import { chalk } from "./chalk";
+import { randfloat } from "./rand";
 
 export const approveToken = async (wallet, { amount, token, spender }) => {
   const bnAmount = new BigNumber(amount);
@@ -12,7 +13,7 @@ export const approveToken = async (wallet, { amount, token, spender }) => {
   const allowance = await tokenContract.allowance(wallet.address, spender);
   if (bnAmount.gt(allowance)) {
     const bnMultipliedAmount = new BigNumber(amount)
-      .multipliedBy(APPROVAL_AMOUNT_MULTIPLIER)
+      .multipliedBy(randfloat(1, APPROVAL_AMOUNT_MULTIPLIER))
       .integerValue(BigNumber.ROUND_FLOOR);
 
     console.log(

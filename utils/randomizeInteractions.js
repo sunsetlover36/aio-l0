@@ -1,7 +1,7 @@
 import { config } from "../config";
 import * as interactions from "../interactions";
 import { shuffleArray } from "./shuffleArray";
-import { randint } from "./randint";
+import { randint } from "./rand";
 
 const { chainsCount, interactionsCount } = config;
 

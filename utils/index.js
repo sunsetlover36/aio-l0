@@ -1,6 +1,6 @@
 export { chalk } from "./chalk";
 
-export { randint } from "./randint";
+export { randfloat, randint } from "./rand";
 export { shuffleArray } from "./shuffleArray";
 export { sleep } from "./sleep";
 export { convertMonthToMs } from "./convertMonthToMs";
