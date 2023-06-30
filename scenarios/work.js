@@ -201,7 +201,7 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
   }
 
   if (sieve.length === 0 || areAllInteractionsDone(interactionsDone)) {
-    console.log(chalk.greenBright("Finished work!"));
+    console.log(chalk.greenBright(`Finished work with key ${evmKey}!`));
   } else {
     // Get rid of chains with not enough balance for next iteration
     const chainsWithBalance = (
