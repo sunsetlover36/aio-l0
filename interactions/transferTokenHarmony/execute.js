@@ -6,10 +6,12 @@ import { chains } from "../../chains";
 const harmonyLzChainId = chains.harmony.lzChainId;
 export const execute = async (wallet, { token, amount }) => {
   const {
+    name,
     contracts: {
       services: { LayerZero, ProxyERC20 },
     },
   } = await getChainByWallet(wallet);
+  const isArbitrum = name === chains.arbitrum.name;
 
   const lzRouterContract = new Contract(
     LayerZero.LZRouter.address,
@@ -28,10 +30,14 @@ export const execute = async (wallet, { token, amount }) => {
     spender: ProxyERC20.address,
   });
 
-  const adapterParams = solidityPacked(
-    ["uint16", "uint", "uint", "address"],
-    [2, 500000, 0, wallet.address]
-  );
+  let adapterParams = "0x";
+  if (!isArbitrum) {
+    adapterParams = solidityPacked(
+      ["uint16", "uint", "uint", "address"],
+      [2, 500000, 0, wallet.address]
+    );
+  }
+
   const lzBridgeFee = (
     await lzRouterContract.quoteLayerZeroFee(
       harmonyLzChainId,
@@ -59,5 +65,15 @@ export const execute = async (wallet, { token, amount }) => {
     to: ProxyERC20.address,
   };
 
-  await sendTx(wallet, txParams);
+  await sendTx(
+    wallet,
+    txParams,
+    isArbitrum
+      ? {
+          baseFee: 6,
+          maxPriorityFeePerGas: 6,
+          gasLimit: 1400000,
+        }
+      : undefined
+  );
 };

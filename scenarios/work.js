@@ -173,10 +173,14 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
               toChainName: destChain.name,
             });
 
-            await interactions.transferTokenHarmony.execute(evmWallet, {
-              token: stableToken,
-              amount: stablesAmountForInteraction,
-            });
+            const transferTokenHarmonyParams =
+              await interactions.transferTokenHarmony.prepare(evmWallet, {
+                amount: stablesAmountForInteraction,
+              });
+            await interactions.transferTokenHarmony.execute(
+              evmWallet,
+              transferTokenHarmonyParams
+            );
             break;
           default:
             break;
