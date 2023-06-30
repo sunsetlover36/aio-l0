@@ -63,14 +63,14 @@ export const execute = async (
     fromToken.StargatePool.id,
     toToken.StargatePool.id,
     wallet.address,
-    bnAmount.toNumber(),
+    bnAmount.toString(),
     bnAmount
       .multipliedBy(SLIPPAGE_MULTIPLIER)
       .integerValue(BigNumber.ROUND_FLOOR)
-      .toNumber(),
-    [0, destGas, wallet.address],
+      .toString(),
+    [0, destGas, "0x0000000000000000000000000000000000000001"],
     wallet.address,
-    ZeroHash,
+    "0x",
   ];
   const txParams = {
     value: lzBridgeFee.toString(),
@@ -78,12 +78,19 @@ export const execute = async (
     to: LayerZero.LZRouter.address,
   };
 
+  const amountToReceive = new BigNumber(destTokenBalance)
+    .plus(
+      bnAmount
+        .dividedBy(10 ** fromToken.decimals)
+        .multipliedBy(10 ** toToken.decimals)
+        .multipliedBy(1 - (slippage + 2) / 100)
+    )
+    .integerValue(BigNumber.ROUND_FLOOR)
+    .toString();
+
   await sendTx(wallet, txParams);
   await waitForBalance(destWallet, {
     token: toToken,
-    amount: new BigNumber(destTokenBalance)
-      .plus(amount)
-      .multipliedBy(1 - (slippage + 2) / 100)
-      .toString(),
+    amount: amountToReceive,
   });
 };
