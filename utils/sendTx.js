@@ -1,3 +1,5 @@
+import { chalk } from "./chalk";
+
 export const sendTx = async (wallet, txData, gasParams) => {
   let populatedTx;
 
@@ -18,5 +20,6 @@ export const sendTx = async (wallet, txData, gasParams) => {
     });
   }
   const tx = await wallet.sendTransaction(populatedTx);
+  console.log(chalk.green(`Sent tx > ${tx.hash}`));
   await wallet.provider.waitForTransaction(tx.hash);
 };
