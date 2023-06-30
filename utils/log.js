@@ -1,7 +1,9 @@
 import figlet from "figlet";
+import logUpdate from "log-update";
 
-import { chainToColor, moduleToColor } from "../constants";
+import { LOADER_FRAMES, chainToColor, moduleToColor } from "../constants";
 import { chalk } from "./chalk";
+import { formatDate } from "./date";
 
 export const logIntro = () => {
   console.log(
@@ -37,6 +39,22 @@ export const logBridge = ({ log, moduleName, toChainName }) => {
       toChainName.toLowerCase()
     ](toChainName.toUpperCase())}...`
   );
+};
+
+export const logLoader = async ({ loadingText, successText }, fn) => {
+  let i = 0;
+  const interval = setInterval(() => {
+    logUpdate(
+      chalk.gray(
+        `[${formatDate(new Date())}] ${loadingText} ${
+          LOADER_FRAMES[(i = ++i % LOADER_FRAMES.length)]
+        }`
+      )
+    );
+  }, 100);
+  await fn();
+  clearInterval(interval);
+  logUpdate(chalk.green(`[${formatDate(new Date())}] ${successText}`));
 };
 export const workLogger = ({ walletAddress, chainName }) => {
   return (interaction) => {

@@ -1,5 +1,6 @@
 export { chalk } from "./chalk";
 
+export { formatDate } from "./date";
 export { randfloat, randint } from "./rand";
 export { shuffleArray } from "./shuffleArray";
 export { sleep } from "./sleep";
@@ -20,7 +21,7 @@ export { waitForBalance } from "./waitForBalance";
 
 export { convertNativeForRefuel } from "./convertNativeForRefuel";
 
-export { logIntro, logWork, logBridge, workLogger } from "./log";
+export { logIntro, logWork, logBridge, logLoader, workLogger } from "./log";
 
 export { randomizeInteractions } from "./randomizeInteractions";
 export { estimateLzSendFee } from "./estimateLzSendFee";

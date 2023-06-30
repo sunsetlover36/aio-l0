@@ -3,6 +3,7 @@ import BigNumber from "bignumber.js";
 
 import { sleep } from "./sleep";
 
+// TODO: log waiting so user dont think that soft lagged
 export const waitForBalance = async (wallet, { token, amount }) => {
   const tokenContract = new Contract(token.address, token.abi, wallet);
   const tokenBalance = await tokenContract.balanceOf(wallet.address);
