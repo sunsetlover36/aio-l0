@@ -45,16 +45,15 @@ export const logLoader = async ({ loadingText, successText }, fn) => {
   let i = 0;
   const interval = setInterval(() => {
     logUpdate(
-      chalk.gray(
-        `[${formatDate(new Date())}] ${loadingText} ${
-          LOADER_FRAMES[(i = ++i % LOADER_FRAMES.length)]
-        }`
-      )
+      `[${formatDate(new Date())}] ` +
+        chalk.gray(
+          `${loadingText} ${LOADER_FRAMES[(i = ++i % LOADER_FRAMES.length)]}`
+        )
     );
   }, 100);
   await fn();
   clearInterval(interval);
-  logUpdate(chalk.green(`[${formatDate(new Date())}] ${successText}`));
+  logUpdate(`[${formatDate(new Date())}] ` + chalk.green(successText));
 };
 export const workLogger = ({ walletAddress, chainName }) => {
   return (interaction) => {
