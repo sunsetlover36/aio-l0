@@ -1,6 +1,7 @@
 import { JsonRpcProvider, parseUnits } from "ethers";
 
 import { USDC } from "./usdc";
+import { BridgedUSDC } from "./bridgedUsdc";
 import { WETH } from "./weth";
 import { GETH } from "./geth";
 import { STG, STGVotingEscrow } from "./stg";
@@ -31,6 +32,7 @@ export const arbitrum = {
   contracts: {
     tokens: {
       USDC,
+      BridgedUSDC,
       WETH,
       GETH,
       STG,
