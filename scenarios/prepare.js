@@ -1,9 +1,9 @@
-import { Contract, formatEther, Wallet } from "ethers";
+import { formatEther, Wallet } from "ethers";
 import BigNumber from "bignumber.js";
 
 import {
-  REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT,
-  REQUIRED_USD_AMOUNT_FOR_SECONDARY_ACCOUNT,
+  REQUIRED_NATIVE_USD_AMOUNT_FOR_ACCOUNT,
+  REQUIRED_STABLE_USD_AMOUNT_FOR_MAIN_ACCOUNT,
 } from "../constants";
 import { chains } from "../chains";
 import { getUsdPrice } from "../api";
@@ -33,11 +33,12 @@ export const prepare = async (keysList) => {
               token: stableToken,
             });
 
-            return nativeBalanceInUsd >
-              REQUIRED_USD_AMOUNT_FOR_SECONDARY_ACCOUNT
+            return nativeBalanceInUsd > REQUIRED_NATIVE_USD_AMOUNT_FOR_ACCOUNT
               ? {
                   name: chainName,
-                  canBeRoot: new BigNumber(REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT)
+                  canBeRoot: new BigNumber(
+                    REQUIRED_STABLE_USD_AMOUNT_FOR_MAIN_ACCOUNT
+                  )
                     .multipliedBy(10 ** stableToken.decimals)
                     .lte(stableTokenBalance),
                 }
@@ -50,7 +51,7 @@ export const prepare = async (keysList) => {
 
       if (!sieve[0].canBeRoot) {
         throw new Error(
-          `No chain found with more than $${REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT} in stable token`
+          `No chain found with more than $${REQUIRED_STABLE_USD_AMOUNT_FOR_MAIN_ACCOUNT} in stable token`
         );
       }
 

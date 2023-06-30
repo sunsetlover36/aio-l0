@@ -17,7 +17,7 @@ import {
 } from "../utils";
 import { config } from "../config";
 import { CHAINS_TO_WORK_WITH, chains } from "../chains";
-import { REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT } from "../constants";
+import { REQUIRED_NATIVE_USD_AMOUNT_FOR_ACCOUNT } from "../constants";
 import { getUsdPrice } from "../api";
 
 const {
@@ -61,12 +61,7 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
     }
 
     const chain = chains[chainName];
-    const {
-      provider,
-      contracts: {
-        tokens: { USDC },
-      },
-    } = chain;
+    const { provider } = chain;
 
     const evmWallet = new Wallet(evmKey, provider);
     const nativeBalance = await provider.getBalance(evmWallet.address);
@@ -82,8 +77,12 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
     for (const interaction of chainInteractions) {
       let destChain =
         index === todos.length - 1
-          ? getRandomChain(sieve, [chainName])
+          ? getRandomChain(
+              sieve.length === 1 ? config.chainsForInteractions : sieve,
+              [chainName]
+            )
           : chains[todos[index + 1].chainName];
+
       const destStableToken = getStableToken(destChain);
 
       const stablesAmountForInteraction = new BigNumber(
@@ -150,6 +149,7 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
             await interactions.transferEthToGoerli.execute(evmWallet, {
               amount: new BigNumber(nativeBalance)
                 .multipliedBy(percentage.swapToGeth / 100)
+                .integerValue(BigNumber.ROUND_FLOOR)
                 .toString(),
             });
             break;
@@ -216,7 +216,7 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
           const usdPrice = await getUsdPrice(nativeToken.coinGeckoId);
           const nativeBalanceInUsd = nativeBalance * usdPrice;
 
-          if (nativeBalanceInUsd > REQUIRED_USD_AMOUNT_FOR_MAIN_ACCOUNT) {
+          if (nativeBalanceInUsd > REQUIRED_NATIVE_USD_AMOUNT_FOR_ACCOUNT) {
             return chain;
           }
         })
