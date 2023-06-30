@@ -49,6 +49,11 @@ export const prepare = async (keysList) => {
         .filter((chain) => chain)
         .sort((a) => (a.canBeRoot ? -1 : 1));
 
+      if (sieve.length === 0) {
+        throw new Error(
+          `No chain found with more than $${REQUIRED_NATIVE_USD_AMOUNT_FOR_ACCOUNT} in native token`
+        );
+      }
       if (!sieve[0].canBeRoot) {
         throw new Error(
           `No chain found with more than $${REQUIRED_STABLE_USD_AMOUNT_FOR_MAIN_ACCOUNT} in stable token`
