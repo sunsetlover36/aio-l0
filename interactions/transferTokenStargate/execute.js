@@ -7,6 +7,7 @@ import {
   approveToken,
   getChainById,
   getChainByWallet,
+  logLoader,
   sendTx,
   waitForBalance,
 } from "../../utils";
@@ -89,8 +90,16 @@ export const execute = async (
     .toString();
 
   await sendTx(wallet, txParams);
-  await waitForBalance(destWallet, {
-    token: toToken,
-    amount: amountToReceive,
-  });
+  await logLoader(
+    {
+      loadingText:
+        "Waiting for funds to be transferred to the destination chain...",
+      successText: "Funds have arrived!",
+    },
+    () =>
+      waitForBalance(destWallet, {
+        token: toToken,
+        amount: amountToReceive,
+      })
+  );
 };
