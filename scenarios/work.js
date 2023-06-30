@@ -34,7 +34,9 @@ const getRandomChain = (sieve, filter = []) => {
   );
 
   if (shuffledChains.length === 0) {
-    const randomChainName = shuffleArray(CHAINS_TO_WORK_WITH)[0];
+    const randomChainName = shuffleArray(
+      CHAINS_TO_WORK_WITH.filter((chain) => !filter.includes(chain))
+    )[0];
     return chains[randomChainName];
   }
 
@@ -196,16 +198,6 @@ export const work = async ({ keys, sieve }, interactionsDone) => {
         log(`An unexpected error occurred when executing ${interaction.name}!`);
       }
     }
-
-    //   await interactions.transferTokenStargate.bridgeStablesForInteraction(
-    //     evmWallet,
-    //     {
-    //       interactionName: interaction.name,
-    //       stableToken,
-    //       availableChains: sieve,
-    //       log,
-    //     }
-    //   );
   }
 
   if (sieve.length === 0 || areAllInteractionsDone(interactionsDone)) {
