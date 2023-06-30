@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import { Contract } from "ethers";
 
 import { getChainByWallet, sendTx } from "../utils";
 import { SLIPPAGE_MULTIPLIER } from "../constants";
@@ -31,6 +32,7 @@ export const swapWoofi = async (wallet, { amount, fromToken, toToken }) => {
     )
   )
     .multipliedBy(SLIPPAGE_MULTIPLIER)
+    .integerValue(BigNumber.ROUND_FLOOR)
     .toString();
 
   const swapMethodParams = [
@@ -49,6 +51,5 @@ export const swapWoofi = async (wallet, { amount, fromToken, toToken }) => {
     ),
   };
   await sendTx(wallet, swapTx);
-
   return amountToReceive;
 };
