@@ -2,7 +2,7 @@
 
 # L0 AIO by @ruburi
 
-## Сети
+## Supported networks
 
 - Avalanche
 - Arbitrum
@@ -10,7 +10,7 @@
 - Optimism
 - Polygon
 
-## Возможности софта
+## Features
 
 - [STG stake](https://stargate.finance/stake/)
 - [testnetbridge](https://testnetbridge.com/)
@@ -21,37 +21,34 @@
 - [jumper.exchange](https://jumper.exchange/)
 - [woofi](https://fi.woo.org/)
 
-## Настройка софта
+## Customize settings
+In the `config.js` file, you can customize settings.
 
-В файле `config.js` можно настроить софт.
+- `stgStakePeriodInMonths` is responsible for how many months to steak STG for
+- `slippage` is responsible for the default slippage during swaps and other conversions
+- `percentage` is responsible for what percentage of the native balance will be swapped into GETH and BTCb (example, `swapToGeth: 5`)
+- `chainsForInteractions` is responsible for the list of networks the software will work with
+- `chainsCount` is responsible for the number of networks to be affected (from and to)
+- `interactionsInterval` is responsible for how many seconds there should be a break between interactions (from and to)
+- `interactionsCount` is responsible for how many times you need to do an action. If you want to do some action indefinitely, just set the numbers `Infinity` together
+- `stablesForInteraction` is responsible for how many stable tokens will be spent in any given action (from and to)
 
-- `stgStakePeriodInMonths` отвечает за то, на сколько месяцев стейкать STG
-- `slippage` отвечает за дефолтный slippage при свапах и остальных конвертах
-- `percentage` отвечает за то, какой процент от нативного баланса будет свапнут в GETH и BTCb (пример, `swapToGeth: 5`)
-- `chainsForInteractions` отвечает за список сетей, с которыми софт будет работать
-- `chainsCount` отвечает за количество сетей, которые должны быть затронуты (от и до)
-- `interactionsInterval` отвечает за то, сколько секунд должен быть перерыв между интеракциями (от и до)
-- `interactionsCount` отвечает за то, сколько раз нужно прокрутить то или иное действие. Если хотите крутить какое-то действие бесконечно, просто выставляйте вместе цифры `Infinity`
-- `stablesForInteraction` отвечает за то, сколько будет тратиться стейблов в каком-то из действий (от и до)
+## Before launch
+The main stable token for BSC is **USDT**, for other networks it is **USDC**
 
-## Перед запуском
+1. Spread the commissions over the desired networks (from $2)
+2. Send stable tokens to one of the networks (from $0.5)
+3. Enter private keys into `keys.example.json` file (you need private keys for EVM and Aptos **without 0x**, there is an example inside).
+4. Rename `keys.example.json` to `keys.json`.
+5. Run the software
 
-Основной стейбл для BSC - **USDT**, для остальных сетей - **USDC**
+## Start-up instructions
+1. Install [Nodejs](https://nodejs.org/en/download)
+2. Clone the repository or download the archive
+3. Go to the folder with the software in the console and write the command `npm install`
+4. Type `npm run start` in the console to start the software
 
-1. Раскидываете по желаемым сетям комсу (от $2)
-2. Кидаете в одну из сетей стейблов (от $0.5)
-3. Вносите приватники в файл `keys.example.json` (нужны приватники для EVM и Aptos **без 0x**, внутри есть пример)
-4. Переименовываете `keys.example.json` на `keys.json`
-5. Запускаете софт
+## You have to keep in mind
+The software approves 10x of what it is going to swap. That is, if 500 USDC is approved, then 50 USDC will be swapped.
 
-## Инструкция по запуску
-
-1. Установите [Nodejs](https://nodejs.org/en/download)
-2. Клонируйте репозиторий или скачайте архивом
-3. Зайдите в папку с софтом в консоли и напишите команду `npm install`
-4. Введите в консоль `npm run start` для запуска софта
-
-## Нюансы
-Софт апрувает 10x от того, что собирается свапнуть. То есть если апрувается 500 USDC, то свапается 50 USDC.
-
-Если вы найдете баги или столкнетесь с другими проблемами по поводу софта - пишите [@rubyuroboros](https://t.me/rubyuroboros) в Telegram или в паблик под постом.
+If you find bugs or encounter other problems with the software - write [@rubyuroboros](https://t.me/rubyuroboros) in Telegram or in the Telegram channel comments below the post.
